@@ -63,12 +63,12 @@ function WorkoutPage() {
             >
               <ArrowLeft className="h-4 w-4" /> Painel
             </Link>
-            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-white/80">
+            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-flame">
               Semana {day.week} · {day.phase}
             </span>
           </div>
 
-          <p className="mt-6 text-xs font-extrabold uppercase tracking-[0.22em] text-white/75">
+          <p className="mt-6 text-xs font-extrabold uppercase tracking-[0.22em] text-flame">
             Dia {day.day} de 28
           </p>
           <h1 className="mt-2 max-w-xl text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
@@ -98,7 +98,7 @@ function WorkoutPage() {
               height={540}
               loading="eager"
               decoding="async"
-              className="h-full w-full object-cover grayscale"
+              className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-5">
@@ -211,7 +211,7 @@ function WorkoutPage() {
                 complete(day.day);
                 setCelebrate(true);
               }}
-              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-brand-deep px-4 text-center text-sm font-extrabold text-white shadow-[0_12px_28px_-14px_oklch(0.15_0_0/0.55)] transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-flame px-4 text-center text-sm font-extrabold text-white shadow-[0_12px_28px_-14px_oklch(0.55_0.22_28/0.55)] transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
             >
               <Check className="h-5 w-5" />
               {allChecked

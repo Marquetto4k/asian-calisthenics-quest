@@ -37,14 +37,14 @@ function Index() {
     <div className="min-h-screen bg-background pb-28 font-sans text-foreground">
       <header className="hero-grid overflow-hidden bg-brand-deep px-5 pb-20 pt-8 text-primary-foreground sm:px-8 sm:pb-24 sm:pt-12">
         <div className="mx-auto max-w-4xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white/80">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-flame">
             <Sparkles className="h-3.5 w-3.5" /> Protocolo exclusivo
           </div>
           <p className="mt-5 text-sm font-bold uppercase tracking-[0.18em] text-primary-foreground/70">
             Calistenia Asiática
           </p>
           <h1 className="mt-1 max-w-2xl text-[clamp(2.25rem,10vw,4.75rem)] font-extrabold leading-[0.98] tracking-[-0.045em]">
-            Desafio <span className="text-white">28 dias</span>
+            Desafio <span className="text-flame">28 dias</span>
           </h1>
           <p className="mt-5 max-w-xl text-sm leading-relaxed text-primary-foreground/75 sm:text-base">
             Treinos curtos, guiados e possíveis de fazer em casa. Abra o dia, siga o exercício e
@@ -70,7 +70,7 @@ function Index() {
 
           <div className="mt-4 h-3 overflow-hidden rounded-full bg-brand-soft">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-brand-deep to-neutral-500 transition-all duration-700"
+              className="h-full rounded-full bg-gradient-to-r from-brand-deep to-flame transition-all duration-700"
               style={{ width: `${percent}%` }}
             />
           </div>
@@ -84,7 +84,7 @@ function Index() {
           <Link
             to="/dia/$day"
             params={{ day: String(challengeDone ? 28 : currentDay) }}
-            className="mt-5 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-brand-deep px-5 py-4 text-center text-sm font-extrabold text-white shadow-[0_12px_28px_-14px_oklch(0.15_0_0/0.55)] transition active:scale-[0.98] sm:text-base"
+            className="mt-5 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-flame px-5 py-4 text-center text-sm font-extrabold text-white shadow-[0_12px_28px_-14px_oklch(0.55_0.22_28/0.55)] transition active:scale-[0.98] sm:text-base"
           >
             {challengeDone ? <Trophy className="h-5 w-5" /> : <Play className="h-5 w-5" />}
             {challengeDone
@@ -186,7 +186,7 @@ function Index() {
                       height={264}
                       loading="lazy"
                       decoding="async"
-                      className="h-full w-full object-cover grayscale transition duration-300 group-hover:scale-105"
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                     />
                     <span className="absolute left-2 top-2 rounded-full bg-brand-deep/90 px-2 py-1 text-[10px] font-extrabold text-white backdrop-blur">
                       DIA {day.day}

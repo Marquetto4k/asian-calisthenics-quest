@@ -132,7 +132,7 @@ function ChatPage() {
                 className={[
                   "max-w-[82%] rounded-3xl px-4 py-3 text-sm leading-relaxed",
                   message.role === "user"
-                    ? "rounded-br-lg bg-black text-white"
+                    ? "rounded-br-lg bg-flame text-white"
                     : "rounded-bl-lg border border-border bg-card text-foreground shadow-sm",
                 ].join(" ")}
               >
@@ -201,7 +201,7 @@ function ChatPage() {
             type="submit"
             disabled={!input.trim() || typing}
             aria-label="Enviar pergunta"
-            className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-black text-white transition active:scale-95 disabled:bg-muted disabled:text-muted-foreground"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-flame text-white transition active:scale-95 disabled:bg-muted disabled:text-muted-foreground"
           >
             <Send className="h-4 w-4" />
           </button>

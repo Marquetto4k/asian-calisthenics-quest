@@ -150,7 +150,7 @@ function DietPage() {
           <div className="mt-7 grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-white">
             <Salad className="h-6 w-6" />
           </div>
-          <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-white/75">
+          <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-flame">
             Guia prático • Homens 40+
           </p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
@@ -357,7 +357,7 @@ function DietPage() {
         </section>
 
         <section className="mt-6 rounded-[1.75rem] bg-brand-deep p-5 text-white">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/70">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-flame">
             Economize de verdade
           </p>
           <h2 className="mt-1 text-xl font-extrabold">Três hábitos que reduzem o gasto</h2>

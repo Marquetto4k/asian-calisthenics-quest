@@ -66,7 +66,7 @@ export function ExerciseCard({ exercise, index, checked, onToggle }: ExerciseCar
           height={360}
           loading={index === 0 ? "eager" : "lazy"}
           decoding="async"
-          className="h-full w-full object-cover grayscale"
+          className="h-full w-full object-cover"
         />
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-brand-deep/80 to-transparent" />
         <span className="absolute left-3 top-3 grid h-9 w-9 place-items-center rounded-xl bg-white/95 text-sm font-extrabold text-brand-deep shadow-sm">
@@ -79,7 +79,7 @@ export function ExerciseCard({ exercise, index, checked, onToggle }: ExerciseCar
           onClick={onToggle}
           className={[
             "absolute right-3 top-3 flex min-h-9 items-center gap-1.5 rounded-xl px-3 text-xs font-extrabold shadow-sm transition active:scale-95",
-            checked ? "bg-black text-white" : "bg-white/95 text-brand-deep",
+            checked ? "bg-flame text-white" : "bg-white/95 text-brand-deep",
           ].join(" ")}
         >
           <Check className="h-4 w-4" /> {checked ? "Feito" : "Marcar"}
@@ -153,7 +153,7 @@ export function ExerciseCard({ exercise, index, checked, onToggle }: ExerciseCar
                   }
                   setRunning((current) => !current);
                 }}
-                className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-brand-deep shadow-lg transition active:scale-95"
+                className="grid h-12 w-12 place-items-center rounded-2xl bg-flame text-white shadow-lg transition active:scale-95"
                 aria-label={running ? "Pausar timer" : "Iniciar timer"}
               >
                 {running ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
@@ -171,7 +171,7 @@ export function ExerciseCard({ exercise, index, checked, onToggle }: ExerciseCar
 
           <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
             <div
-              className="h-full rounded-full bg-white transition-all duration-500"
+              className="h-full rounded-full bg-flame transition-all duration-500"
               style={{ width: `${elapsedPercent}%` }}
             />
           </div>
