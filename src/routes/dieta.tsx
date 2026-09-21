@@ -59,7 +59,7 @@ const meals = [
     title: "Café da manhã",
     subtitle: "Simples, barato e com saciedade",
     icon: Coffee,
-    color: "bg-amber-100 text-amber-700",
+    color: "bg-neutral-100 text-neutral-800",
     options: [
       "2 ovos mexidos + banana com aveia",
       "Pão comum ou integral + 2 ovos + uma fruta da estação",
@@ -70,7 +70,7 @@ const meals = [
     title: "Almoço",
     subtitle: "Use arroz e feijão como base",
     icon: Sun,
-    color: "bg-orange-100 text-orange-700",
+    color: "bg-neutral-200 text-neutral-900",
     options: [
       "Arroz + feijão + frango + salada ou legume da estação",
       "Arroz + feijão + 2 ovos + couve ou cenoura",
@@ -81,7 +81,7 @@ const meals = [
     title: "Lanche",
     subtitle: "Para não depender de produtos caros",
     icon: Sandwich,
-    color: "bg-sky-100 text-sky-700",
+    color: "bg-neutral-100 text-neutral-800",
     options: [
       "Banana + um pequeno punhado de amendoim sem sal",
       "Ovo cozido + fruta da estação",
@@ -92,7 +92,7 @@ const meals = [
     title: "Jantar",
     subtitle: "Reaproveite a base do almoço",
     icon: Moon,
-    color: "bg-indigo-100 text-indigo-700",
+    color: "bg-neutral-200 text-neutral-900",
     options: [
       "Arroz + feijão + frango ou ovos + legumes",
       "Omelete com vegetais + arroz e feijão",
@@ -147,10 +147,10 @@ function DietPage() {
           >
             <ArrowLeft className="h-4 w-4" /> Painel
           </Link>
-          <div className="mt-7 grid h-12 w-12 place-items-center rounded-2xl bg-emerald-400/15 text-emerald-300">
+          <div className="mt-7 grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-white">
             <Salad className="h-6 w-6" />
           </div>
-          <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-flame">
+          <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-white/75">
             Guia prático • Homens 40+
           </p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
@@ -164,7 +164,7 @@ function DietPage() {
       </header>
 
       <main className="mx-auto -mt-9 max-w-3xl px-4 sm:px-8">
-        <section className="rounded-[1.75rem] border border-white/70 bg-card p-5 shadow-[0_24px_55px_-30px_oklch(0.22_0.11_258/0.6)]">
+        <section className="rounded-[1.75rem] border border-white/70 bg-card p-5 shadow-[0_24px_55px_-30px_oklch(0.2_0_0/0.38)]">
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-flame">
             O que importa depois dos 40
           </p>
@@ -203,7 +203,7 @@ function DietPage() {
           </div>
 
           <div className="mt-5 grid grid-cols-2 gap-3">
-            <div className="col-span-2 rounded-2xl bg-emerald-100 p-4 text-emerald-800">
+            <div className="col-span-2 rounded-2xl bg-neutral-200 p-4 text-neutral-900">
               <p className="text-2xl font-extrabold">½</p>
               <p className="text-sm font-bold">Legumes e verduras disponíveis</p>
               <p className="mt-1 text-[11px]">Prefira os da estação e varie quando puder.</p>
@@ -229,7 +229,7 @@ function DietPage() {
 
         <section className="mt-6 rounded-[1.75rem] border border-border bg-card p-5">
           <div className="flex items-start gap-3">
-            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-amber-100 text-amber-700">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-neutral-200 text-neutral-900">
               <ShoppingBasket className="h-5 w-5" />
             </span>
             <div>
@@ -257,14 +257,14 @@ function DietPage() {
         <section className="mt-6 rounded-[1.75rem] border border-border bg-card p-5">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-sky-600">
+              <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-neutral-700">
                 <Droplets className="h-4 w-4" /> Lembrete de água
               </p>
               <h2 className="mt-2 text-xl font-extrabold text-brand-deep">
                 {water} de 8 marcações
               </h2>
             </div>
-            <span className="rounded-full bg-sky-100 px-3 py-1.5 text-xs font-extrabold text-sky-700">
+            <span className="rounded-full bg-neutral-200 px-3 py-1.5 text-xs font-extrabold text-neutral-900">
               {Math.round((water / 8) * 100)}%
             </span>
           </div>
@@ -281,8 +281,8 @@ function DietPage() {
                   className={[
                     "grid aspect-square place-items-center rounded-xl border transition active:scale-95",
                     filled
-                      ? "border-sky-400 bg-sky-500 text-white"
-                      : "border-sky-100 bg-sky-50 text-sky-300",
+                      ? "border-black bg-black text-white"
+                      : "border-neutral-200 bg-neutral-100 text-neutral-400",
                   ].join(" ")}
                 >
                   {filled ? <Check className="h-4 w-4" /> : <Droplets className="h-4 w-4" />}
@@ -334,7 +334,7 @@ function DietPage() {
                           key={option}
                           className="flex gap-2 text-sm leading-relaxed text-foreground"
                         >
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /> {option}
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-neutral-800" /> {option}
                         </li>
                       ))}
                     </ul>
@@ -357,21 +357,21 @@ function DietPage() {
         </section>
 
         <section className="mt-6 rounded-[1.75rem] bg-brand-deep p-5 text-white">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-flame">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/70">
             Economize de verdade
           </p>
           <h2 className="mt-1 text-xl font-extrabold">Três hábitos que reduzem o gasto</h2>
           <ul className="mt-4 space-y-3 text-xs leading-relaxed text-white/75">
             <li className="flex gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-white/75" />
               Cozinhe arroz, feijão e frango em porções e armazene corretamente para outros dias.
             </li>
             <li className="flex gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-white/75" />
               Compare o preço por quilo e prefira frutas, verduras e legumes da estação.
             </li>
             <li className="flex gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-white/75" />
               Use primeiro o que já tem em casa; suplementos não são o ponto de partida deste guia.
             </li>
           </ul>

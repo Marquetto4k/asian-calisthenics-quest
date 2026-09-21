@@ -63,12 +63,12 @@ function WorkoutPage() {
             >
               <ArrowLeft className="h-4 w-4" /> Painel
             </Link>
-            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-flame">
+            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-white/80">
               Semana {day.week} · {day.phase}
             </span>
           </div>
 
-          <p className="mt-6 text-xs font-extrabold uppercase tracking-[0.22em] text-flame">
+          <p className="mt-6 text-xs font-extrabold uppercase tracking-[0.22em] text-white/75">
             Dia {day.day} de 28
           </p>
           <h1 className="mt-2 max-w-xl text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
@@ -89,7 +89,7 @@ function WorkoutPage() {
       </header>
 
       <main className="mx-auto max-w-3xl px-4 pb-40 pt-5 sm:px-8">
-        <section className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-[0_18px_44px_-32px_oklch(0.22_0.12_255/0.6)]">
+        <section className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-[0_18px_44px_-32px_oklch(0.2_0_0/0.38)]">
           <div className="relative aspect-[16/9] overflow-hidden">
             <img
               src={day.image}
@@ -98,11 +98,11 @@ function WorkoutPage() {
               height={540}
               loading="eager"
               decoding="async"
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover grayscale"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-flame">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/75">
                 Treino de hoje
               </p>
               <p className="mt-1 text-sm font-semibold">Siga os movimentos no seu ritmo.</p>
@@ -188,11 +188,11 @@ function WorkoutPage() {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-14px_35px_-25px_oklch(0.22_0.1_255/0.5)] backdrop-blur-xl sm:px-8">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-14px_35px_-25px_oklch(0.2_0_0/0.32)] backdrop-blur-xl sm:px-8">
         <div className="mx-auto max-w-3xl">
           {done ? (
             <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-              <div className="flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-emerald-100 px-3 text-sm font-extrabold text-emerald-700">
+              <div className="flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-neutral-200 px-3 text-sm font-extrabold text-neutral-900">
                 <CheckCircle2 className="h-5 w-5" /> Dia {day.day} concluído
               </div>
               <button
@@ -211,7 +211,7 @@ function WorkoutPage() {
                 complete(day.day);
                 setCelebrate(true);
               }}
-              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-flame px-4 text-center text-sm font-extrabold text-white shadow-[0_12px_28px_-14px_oklch(0.7_0.18_48/0.8)] transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-brand-deep px-4 text-center text-sm font-extrabold text-white shadow-[0_12px_28px_-14px_oklch(0.15_0_0/0.55)] transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
             >
               <Check className="h-5 w-5" />
               {allChecked

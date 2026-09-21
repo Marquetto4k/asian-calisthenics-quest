@@ -5,7 +5,6 @@ import {
   CheckCircle2,
   Clock3,
   HeartPulse,
-  MessageCircle,
   RotateCcw,
   Salad,
   Send,
@@ -31,13 +30,13 @@ const suggestions = [
 const welcome: Message = {
   id: 1,
   role: "assistant",
-  text: "Olá! Sou o assistente do Protocolo. Posso ajudar com adaptações, rotina, timer e dúvidas básicas do desafio.",
+  text: "Olá! Eu sou o Ryuh, seu assistente do Protocolo. Posso ajudar com adaptações, rotina, timer e dúvidas básicas do desafio.",
 };
 
 export const Route = createFileRoute("/chat")({
   head: () => ({
     meta: [
-      { title: "Assistente — Protocolo Calistenia Asiática" },
+      { title: "Ryuh — Assistente do Protocolo Calistenia Asiática" },
       {
         name: "description",
         content: "Respostas rápidas para acompanhar os treinos do desafio de 28 dias.",
@@ -93,11 +92,11 @@ function ChatPage() {
           </Link>
           <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-brand-deep text-white">
             <Bot className="h-5 w-5" />
-            <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-emerald-500" />
+            <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card bg-black" />
           </span>
           <div className="min-w-0">
-            <p className="truncate font-extrabold text-brand-deep">Assistente do Protocolo</p>
-            <p className="text-[11px] font-semibold text-emerald-600">
+            <p className="truncate font-extrabold text-brand-deep">Ryuh</p>
+            <p className="text-[11px] font-semibold text-neutral-600">
               Respostas rápidas disponíveis
             </p>
           </div>
@@ -107,7 +106,7 @@ function ChatPage() {
       <main className="mx-auto flex min-h-[calc(100vh-11rem)] max-w-3xl flex-col px-4 py-5 sm:px-8">
         <section className="rounded-3xl bg-brand-soft/70 p-4">
           <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.15em] text-brand">
-            <Sparkles className="h-4 w-4 text-flame" /> Ajuda rápida
+            <Sparkles className="h-4 w-4 text-flame" /> Ajuda rápida com Ryuh
           </div>
           <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
             Este chat funciona no próprio aplicativo e orienta sobre o uso do protocolo. Ele não
@@ -133,7 +132,7 @@ function ChatPage() {
                 className={[
                   "max-w-[82%] rounded-3xl px-4 py-3 text-sm leading-relaxed",
                   message.role === "user"
-                    ? "rounded-br-lg bg-flame text-white"
+                    ? "rounded-br-lg bg-black text-white"
                     : "rounded-bl-lg border border-border bg-card text-foreground shadow-sm",
                 ].join(" ")}
               >
@@ -202,7 +201,7 @@ function ChatPage() {
             type="submit"
             disabled={!input.trim() || typing}
             aria-label="Enviar pergunta"
-            className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-flame text-white transition active:scale-95 disabled:bg-muted disabled:text-muted-foreground"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-black text-white transition active:scale-95 disabled:bg-muted disabled:text-muted-foreground"
           >
             <Send className="h-4 w-4" />
           </button>
