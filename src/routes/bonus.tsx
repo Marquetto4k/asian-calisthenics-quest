@@ -10,8 +10,7 @@ import {
 } from "lucide-react";
 import { AppBottomNav } from "@/components/AppBottomNav";
 
-const BONUS_DRIVE_URL =
-  "https://drive.google.com/drive/folders/1brIKAxwrMoCwMnGcXkBWsXXkQb7UBbwy?usp=drive_link";
+const BONUS_DRIVE_URL = "https://drive.google.com/drive/folders/1brIKAxwrMoCwMnGcXkBWsXXkQb7UBbwy";
 
 const bonuses = [
   {
@@ -114,8 +113,6 @@ function BonusPage() {
 
           <a
             href={BONUS_DRIVE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             className="mt-5 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-flame px-5 py-4 text-center text-sm font-extrabold text-white shadow-[0_12px_28px_-14px_oklch(0.55_0.22_28/0.55)] transition hover:brightness-105 active:scale-[0.98] sm:text-base"
           >
             Acessar meus bônus
@@ -123,7 +120,7 @@ function BonusPage() {
           </a>
 
           <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
-            O botão abre a pasta com os materiais no Google Drive.
+            O botão abre diretamente a pasta com os materiais no Google Drive.
           </p>
         </section>
 
