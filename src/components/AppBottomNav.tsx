@@ -1,9 +1,10 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Dumbbell, House, MessageCircle, Salad } from "lucide-react";
+import { Dumbbell, Gift, House, MessageCircle, Salad } from "lucide-react";
 
 const items = [
   { to: "/", label: "Desafio", icon: House },
   { to: "/dieta", label: "Dieta", icon: Salad },
+  { to: "/bonus", label: "Bônus", icon: Gift },
   { to: "/chat", label: "Ryuh", icon: MessageCircle },
 ] as const;
 
@@ -15,7 +16,7 @@ export function AppBottomNav() {
       aria-label="Navegação principal"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border/80 bg-card/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 shadow-[0_-12px_30px_-22px_oklch(0.2_0_0/0.32)] backdrop-blur-xl"
     >
-      <div className="mx-auto grid max-w-md grid-cols-3 gap-2">
+      <div className="mx-auto grid max-w-md grid-cols-4 gap-1 sm:gap-2">
         {items.map((item) => {
           const Icon = item.icon;
           const active = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);

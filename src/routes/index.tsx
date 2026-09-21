@@ -6,6 +6,7 @@ import {
   ChevronRight,
   Circle,
   Flame,
+  Gift,
   MessageCircle,
   Play,
   Salad,
@@ -124,6 +125,25 @@ function Index() {
             <ChevronRight className="mt-3 h-4 w-4 text-flame transition-transform group-hover:translate-x-1" />
           </Link>
         </section>
+
+        <Link
+          to="/bonus"
+          className="group mt-3 flex items-center gap-4 overflow-hidden rounded-3xl border border-flame/25 bg-brand-deep p-4 text-white shadow-[0_16px_36px_-24px_oklch(0.2_0_0/0.65)] transition active:scale-[0.99]"
+        >
+          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-flame text-white shadow-lg shadow-flame/20">
+            <Gift className="h-6 w-6" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[10px] font-bold uppercase tracking-[0.18em] text-flame">
+              Conteúdo extra
+            </span>
+            <span className="mt-1 block text-sm font-extrabold">Acesse seus 3 bônus aqui</span>
+            <span className="mt-0.5 block text-xs leading-relaxed text-white/65">
+              Materiais complementares disponíveis no Google Drive.
+            </span>
+          </span>
+          <ChevronRight className="h-5 w-5 shrink-0 text-flame transition-transform group-hover:translate-x-1" />
+        </Link>
 
         <section className="mt-9">
           <div className="flex items-end justify-between gap-4">

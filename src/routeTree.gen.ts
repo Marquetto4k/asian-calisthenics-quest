@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BonusRouteImport } from './routes/bonus'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as DietaRouteImport } from './routes/dieta'
 import { Route as DiaDayRouteImport } from './routes/dia.$day'
@@ -17,6 +18,11 @@ import { Route as DiaDayRouteImport } from './routes/dia.$day'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BonusRoute = BonusRouteImport.update({
+  id: '/bonus',
+  path: '/bonus',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChatRoute = ChatRouteImport.update({
@@ -37,12 +43,14 @@ const DiaDayRoute = DiaDayRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bonus': typeof BonusRoute
   '/chat': typeof ChatRoute
   '/dieta': typeof DietaRoute
   '/dia/$day': typeof DiaDayRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bonus': typeof BonusRoute
   '/chat': typeof ChatRoute
   '/dieta': typeof DietaRoute
   '/dia/$day': typeof DiaDayRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bonus': typeof BonusRoute
   '/chat': typeof ChatRoute
   '/dieta': typeof DietaRoute
   '/dia/$day': typeof DiaDayRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chat' | '/dieta' | '/dia/$day'
+  fullPaths: '/' | '/bonus' | '/chat' | '/dieta' | '/dia/$day'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat' | '/dieta' | '/dia/$day'
-  id: '__root__' | '/' | '/chat' | '/dieta' | '/dia/$day'
+  to: '/' | '/bonus' | '/chat' | '/dieta' | '/dia/$day'
+  id: '__root__' | '/' | '/bonus' | '/chat' | '/dieta' | '/dia/$day'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BonusRoute: typeof BonusRoute
   ChatRoute: typeof ChatRoute
   DietaRoute: typeof DietaRoute
   DiaDayRoute: typeof DiaDayRoute
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bonus': {
+      id: '/bonus'
+      path: '/bonus'
+      fullPath: '/bonus'
+      preLoaderRoute: typeof BonusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chat': {
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BonusRoute: BonusRoute,
   ChatRoute: ChatRoute,
   DietaRoute: DietaRoute,
   DiaDayRoute: DiaDayRoute,
