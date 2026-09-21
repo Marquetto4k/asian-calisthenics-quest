@@ -231,7 +231,7 @@ const videos = [
 ];
 
 export const DAYS: Day[] = Array.from({ length: 28 }, (_, i) => {
-  const base = focusCycle[i % focusCycle.length];
+  const base = focusCycle[i % focusCycle.length]!;
   const week = Math.floor(i / 7) + 1;
   return {
     day: i + 1,
@@ -239,7 +239,7 @@ export const DAYS: Day[] = Array.from({ length: 28 }, (_, i) => {
     focus: base.focus,
     duration: `${25 + (week - 1) * 5} min`,
     difficulty: base.difficulty,
-    video: videos[i % videos.length],
+    video: videos[i % videos.length]!,
     exercises: base.exercises.map((e) => ({
       ...e,
       sets: week >= 3 ? e.sets + 1 : e.sets,
