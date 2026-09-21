@@ -1,4 +1,13 @@
-import { Check, Clock3, Lightbulb, Pause, Play, RotateCcw } from "lucide-react";
+import {
+  Check,
+  CircleAlert,
+  Clock3,
+  Footprints,
+  Lightbulb,
+  Pause,
+  Play,
+  RotateCcw,
+} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import type { Exercise } from "@/lib/program";
 
@@ -87,7 +96,40 @@ export function ExerciseCard({ exercise, index, checked, onToggle }: ExerciseCar
 
         <div className="mt-4 flex gap-2 rounded-2xl bg-brand-soft/75 p-3 text-xs leading-relaxed text-brand-deep">
           <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-flame" />
-          <p>{exercise.tip}</p>
+          <p>
+            <strong className="font-extrabold">Ponto-chave:</strong> {exercise.tip}
+          </p>
+        </div>
+
+        <div className="mt-4 rounded-2xl border border-border bg-background/70 p-4">
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-brand">
+            Como executar
+          </p>
+          <ol className="mt-3 space-y-3">
+            {exercise.instructions.map((instruction, step) => (
+              <li key={instruction} className="flex gap-3 text-xs leading-relaxed text-foreground">
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-deep text-[10px] font-extrabold text-white">
+                  {step + 1}
+                </span>
+                <span className="pt-0.5">{instruction}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          <div className="flex gap-2 rounded-2xl bg-amber-50 p-3 text-xs leading-relaxed text-amber-950">
+            <CircleAlert className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
+            <p>
+              <strong className="font-extrabold">Evite:</strong> {exercise.avoid}
+            </p>
+          </div>
+          <div className="flex gap-2 rounded-2xl bg-emerald-50 p-3 text-xs leading-relaxed text-emerald-950">
+            <Footprints className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+            <p>
+              <strong className="font-extrabold">Adaptação:</strong> {exercise.easier}
+            </p>
+          </div>
         </div>
 
         <div className="mt-4 rounded-2xl bg-brand-deep p-4 text-white">
