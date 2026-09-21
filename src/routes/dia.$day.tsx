@@ -1,6 +1,18 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Check, Clock, Dumbbell, Pause, Play, RotateCcw, Trophy } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  CheckCircle2,
+  ChevronLeft,
+  Clock3,
+  Dumbbell,
+  ShieldCheck,
+  Sparkles,
+  Trophy,
+} from "lucide-react";
+import { useState } from "react";
+import { ExerciseCard } from "@/components/ExerciseCard";
 import { getDay } from "@/lib/program";
 import { useProgress } from "@/lib/progress";
 
@@ -14,14 +26,16 @@ export const Route = createFileRoute("/dia/$day")({
     if (!loaderData) {
       return { meta: [{ title: "Treino não encontrado" }, { name: "robots", content: "noindex" }] };
     }
-    const t = `Dia ${loaderData.day.day}: ${loaderData.day.title} — Desafio 28 Dias`;
-    const d = `Treino de ${loaderData.day.focus.toLowerCase()} em ${loaderData.day.duration}.`;
+
+    const title = `Dia ${loaderData.day.day}: ${loaderData.day.title} — Desafio 28 Dias`;
+    const description = `Treino guiado de ${loaderData.day.focus.toLowerCase()} com checklist e timers rápidos.`;
+
     return {
       meta: [
-        { title: t },
-        { name: "description", content: d },
-        { property: "og:title", content: t },
-        { property: "og:description", content: d },
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
       ],
     };
   },
@@ -30,126 +44,217 @@ export const Route = createFileRoute("/dia/$day")({
 
 function WorkoutPage() {
   const { day } = Route.useLoaderData();
-  const { completed, complete } = useProgress();
+  const { completed, exercises, complete, undo, toggleExercise } = useProgress();
   const navigate = useNavigate();
   const [celebrate, setCelebrate] = useState(false);
   const done = completed.includes(day.day);
+  const checkedExercises = exercises[String(day.day)] ?? [];
+  const allChecked = day.exercises.every((exercise) => checkedExercises.includes(exercise.id));
+  const checkedPercent = Math.round((checkedExercises.length / day.exercises.length) * 100);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
-      <header className="bg-brand-deep px-5 pb-8 pt-6 text-primary-foreground sm:px-8">
+      <header className="hero-grid overflow-hidden bg-brand-deep px-5 pb-8 pt-6 text-primary-foreground sm:px-8 sm:pb-10">
         <div className="mx-auto max-w-3xl">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary-foreground/80"
-          >
-            <ArrowLeft className="h-4 w-4" /> Voltar
-          </Link>
-          <p className="mt-4 text-xs font-bold uppercase tracking-[0.25em] text-flame">
+          <div className="flex items-center justify-between gap-3">
+            <Link
+              to="/"
+              className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white/10 px-3 text-sm font-semibold text-white/85 transition hover:bg-white/15"
+            >
+              <ArrowLeft className="h-4 w-4" /> Painel
+            </Link>
+            <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-flame">
+              Semana {day.week} · {day.phase}
+            </span>
+          </div>
+
+          <p className="mt-6 text-xs font-extrabold uppercase tracking-[0.22em] text-flame">
             Dia {day.day} de 28
           </p>
-          <h1 className="mt-1 text-2xl font-extrabold sm:text-3xl">{day.title}</h1>
-          <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
-            <Chip>{day.focus}</Chip>
+          <h1 className="mt-2 max-w-xl text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
+            {day.title}
+          </h1>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/70">{day.focus}</p>
+
+          <div className="mt-5 flex flex-wrap gap-2 text-[11px] font-bold">
             <Chip>
-              <Clock className="mr-1 inline h-3 w-3" />
-              {day.duration}
+              <Clock3 className="h-3.5 w-3.5" /> {day.duration}
+            </Chip>
+            <Chip>
+              <Dumbbell className="h-3.5 w-3.5" /> {day.exercises.length} exercícios
             </Chip>
             <Chip>{day.difficulty}</Chip>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl px-5 pb-28 pt-6 sm:px-8">
-        <div className="overflow-hidden rounded-3xl bg-brand-deep shadow-lg">
-          <div className="relative w-full pt-[56.25%]">
-            <iframe
-              className="absolute inset-0 h-full w-full"
-              src={day.video}
-              title={`Demonstração — ${day.title}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+      <main className="mx-auto max-w-3xl px-4 pb-40 pt-5 sm:px-8">
+        <section className="overflow-hidden rounded-[1.75rem] border border-border bg-card shadow-[0_18px_44px_-32px_oklch(0.22_0.12_255/0.6)]">
+          <div className="relative aspect-[16/9] overflow-hidden">
+            <img
+              src={day.image}
+              alt={day.imageAlt}
+              width={960}
+              height={540}
+              loading="eager"
+              decoding="async"
+              className="h-full w-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-flame">
+                Treino de hoje
+              </p>
+              <p className="mt-1 text-sm font-semibold">Siga os movimentos no seu ritmo.</p>
+            </div>
           </div>
-        </div>
-
-        <Timer />
+          <div className="p-4 sm:p-5">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs font-bold text-muted-foreground">Checklist do dia</p>
+                <p className="mt-0.5 text-lg font-extrabold text-brand-deep">
+                  {checkedExercises.length} de {day.exercises.length} concluídos
+                </p>
+              </div>
+              <span className="text-2xl font-extrabold text-flame">{checkedPercent}%</span>
+            </div>
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-brand-soft">
+              <div
+                className="h-full rounded-full bg-flame transition-all duration-500"
+                style={{ width: `${checkedPercent}%` }}
+              />
+            </div>
+          </div>
+        </section>
 
         <section className="mt-8">
-          <h2 className="flex items-center gap-2 text-lg font-bold text-brand-deep">
-            <Dumbbell className="h-5 w-5 text-flame" /> Exercícios
-          </h2>
-          <div className="mt-4 space-y-3">
-            {day.exercises.map((ex, i) => (
-              <article key={ex.name} className="rounded-2xl border border-border bg-card p-4">
-                <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-3">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-brand-soft text-sm font-bold text-brand-deep">
-                    {i + 1}
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="text-base font-bold leading-snug text-foreground">{ex.name}</h3>
-                    <div className="mt-2 flex flex-wrap gap-2 text-xs font-semibold">
-                      <Pill>{ex.sets} séries</Pill>
-                      <Pill>{ex.reps}</Pill>
-                      <Pill>Descanso {ex.rest}</Pill>
-                    </div>
-                    <p className="mt-2 text-sm text-muted-foreground">{ex.tip}</p>
-                  </div>
-                </div>
-              </article>
+          <div className="flex items-center gap-2">
+            <span className="grid h-10 w-10 place-items-center rounded-2xl bg-flame-soft text-flame">
+              <Dumbbell className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-flame">
+                Passo a passo
+              </p>
+              <h2 className="text-xl font-extrabold text-brand-deep">Exercícios de hoje</h2>
+            </div>
+          </div>
+
+          <div className="mt-5 space-y-5">
+            {day.exercises.map((exercise, index) => (
+              <ExerciseCard
+                key={`${day.day}-${exercise.id}`}
+                exercise={exercise}
+                index={index}
+                checked={checkedExercises.includes(exercise.id)}
+                onToggle={() => toggleExercise(day.day, exercise.id)}
+              />
             ))}
           </div>
         </section>
+
+        <aside className="mt-6 flex gap-3 rounded-3xl border border-brand/15 bg-brand-soft/65 p-4">
+          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
+          <div>
+            <p className="text-sm font-extrabold text-brand-deep">Treine com segurança</p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              Faça um aquecimento leve, mantenha água por perto e interrompa o exercício em caso de
+              dor, tontura ou mal-estar.
+            </p>
+          </div>
+        </aside>
+
+        <div className="mt-8 grid grid-cols-2 gap-3">
+          {day.day > 1 ? (
+            <Link
+              to="/dia/$day"
+              params={{ day: String(day.day - 1) }}
+              className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-border bg-card text-xs font-bold text-brand-deep"
+            >
+              <ChevronLeft className="h-4 w-4" /> Dia anterior
+            </Link>
+          ) : (
+            <span />
+          )}
+          {day.day < 28 && (
+            <Link
+              to="/dia/$day"
+              params={{ day: String(day.day + 1) }}
+              className="flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-border bg-card text-xs font-bold text-brand-deep"
+            >
+              Próximo dia <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
+        </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 border-t border-border bg-card/95 px-5 py-4 backdrop-blur sm:px-8">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-14px_35px_-25px_oklch(0.22_0.1_255/0.5)] backdrop-blur-xl sm:px-8">
         <div className="mx-auto max-w-3xl">
           {done ? (
-            <div className="flex items-center justify-center gap-2 rounded-2xl bg-brand-soft py-4 text-sm font-bold text-brand-deep">
-              <Check className="h-5 w-5" /> Treino do dia {day.day} concluído
+            <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+              <div className="flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-emerald-100 px-3 text-sm font-extrabold text-emerald-700">
+                <CheckCircle2 className="h-5 w-5" /> Dia {day.day} concluído
+              </div>
+              <button
+                type="button"
+                onClick={() => undo(day.day)}
+                className="min-h-14 rounded-2xl border border-border px-4 text-xs font-bold text-muted-foreground"
+              >
+                Desfazer
+              </button>
             </div>
           ) : (
             <button
+              type="button"
+              disabled={!allChecked}
               onClick={() => {
                 complete(day.day);
                 setCelebrate(true);
               }}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-flame py-4 text-base font-bold text-accent-foreground transition-transform active:scale-[0.98]"
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-flame px-4 text-center text-sm font-extrabold text-white shadow-[0_12px_28px_-14px_oklch(0.7_0.18_48/0.8)] transition active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none"
             >
-              <Check className="h-5 w-5" /> Concluir Treino
+              <Check className="h-5 w-5" />
+              {allChecked
+                ? "Concluir treino de hoje"
+                : `Marque os exercícios (${checkedExercises.length}/${day.exercises.length})`}
             </button>
           )}
         </div>
       </div>
 
       {celebrate && (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-brand-deep/70 px-6">
-          <div className="w-full max-w-sm rounded-3xl bg-card p-6 text-center">
-            <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-flame-soft">
-              <Trophy className="h-8 w-8 text-flame" />
+        <div className="fixed inset-0 z-50 grid place-items-center bg-brand-deep/80 px-5 backdrop-blur-sm">
+          <div className="w-full max-w-sm rounded-[2rem] bg-card p-6 text-center shadow-2xl">
+            <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-flame-soft">
+              <Trophy className="h-10 w-10 text-flame" />
             </div>
-            <h2 className="mt-4 text-xl font-extrabold text-brand-deep">Treino concluído!</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Dia {day.day} finalizado. Seu progresso foi salvo neste dispositivo.
+            <div className="mt-3 inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-flame">
+              <Sparkles className="h-3.5 w-3.5" /> Progresso salvo
+            </div>
+            <h2 className="mt-2 text-2xl font-extrabold text-brand-deep">Treino concluído!</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Você finalizou o dia {day.day}. Continue assim para construir sua sequência.
             </p>
             <div className="mt-6 space-y-2">
               {day.day < 28 && (
                 <button
+                  type="button"
                   onClick={() => {
                     setCelebrate(false);
                     navigate({ to: "/dia/$day", params: { day: String(day.day + 1) } });
                   }}
-                  className="w-full rounded-2xl bg-flame py-3 text-sm font-bold text-accent-foreground"
+                  className="flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-flame px-4 text-sm font-extrabold text-white"
                 >
-                  Ver o dia {day.day + 1}
+                  Ver o dia {day.day + 1} <ArrowRight className="h-4 w-4" />
                 </button>
               )}
               <button
+                type="button"
                 onClick={() => {
                   setCelebrate(false);
                   navigate({ to: "/" });
                 }}
-                className="w-full rounded-2xl border border-border py-3 text-sm font-semibold text-brand-deep"
+                className="min-h-12 w-full rounded-2xl border border-border text-sm font-bold text-brand-deep"
               >
                 Voltar ao painel
               </button>
@@ -163,65 +268,8 @@ function WorkoutPage() {
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-full bg-primary-foreground/10 px-3 py-1 text-primary-foreground">
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-white">
       {children}
     </span>
-  );
-}
-
-function Pill({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full bg-brand-soft px-2.5 py-1 text-brand-deep">{children}</span>
-  );
-}
-
-function Timer() {
-  const [ms, setMs] = useState(0);
-  const [running, setRunning] = useState(false);
-  const ref = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (!running) return;
-    const started = Date.now() - ms;
-    ref.current = window.setInterval(() => setMs(Date.now() - started), 100);
-    return () => {
-      if (ref.current) window.clearInterval(ref.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running]);
-
-  const total = Math.floor(ms / 1000);
-  const mm = String(Math.floor(total / 60)).padStart(2, "0");
-  const ss = String(total % 60).padStart(2, "0");
-  const cs = String(Math.floor((ms % 1000) / 100));
-
-  return (
-    <section className="mt-6 rounded-3xl bg-brand p-5 text-primary-foreground">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground/70">
-        Cronômetro
-      </p>
-      <p className="mt-2 text-center text-5xl font-extrabold tabular-nums sm:text-6xl">
-        {mm}:{ss}
-        <span className="text-2xl text-flame">.{cs}</span>
-      </p>
-      <div className="mt-5 grid grid-cols-2 gap-3">
-        <button
-          onClick={() => setRunning((r) => !r)}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-flame py-3 text-sm font-bold text-accent-foreground"
-        >
-          {running ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-          {running ? "Pausar" : "Iniciar"}
-        </button>
-        <button
-          onClick={() => {
-            setRunning(false);
-            setMs(0);
-          }}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-primary-foreground/15 py-3 text-sm font-bold"
-        >
-          <RotateCcw className="h-4 w-4" /> Zerar
-        </button>
-      </div>
-    </section>
   );
 }
